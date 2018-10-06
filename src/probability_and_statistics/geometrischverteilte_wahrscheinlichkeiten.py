@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 
-# Berechnung von Wahrscheinlichkeiten der geometrischen Verteilung also
-# zB. so lange Wuerfeln bis eine Sechs kommt, dabei Anzahl der Wuerfe zaehlen
+# p/q Wahrscheinlichkeit fuer Treffer/Niete
+p = 1.0 / 6.0 
+q = 1.0 - p 
 
-p = 1.0 / 6.0
-q = 1.0 - p
+# Anzahl der berechneten Wahrscheinlichkeiten (x_Koordinate Maximum)
 maxIdx = 256
 
 x_Koordinaten = range(1, maxIdx+1)
@@ -20,20 +20,20 @@ for i, x in enumerate(x_Koordinaten):
     integralWert = integralWert + y
     y_VerteilungsFkt[i] = integralWert
 
-plt.figure(1)
+fig = plt.figure(figsize=(10,8))
 
 # Dichtefunktion
-plt.subplot(211)
-plt.plot(x_Koordinaten, y_DichteFkt)
-# plt.axis([1, maxIdx, 0, 0.2])
-plt.title("Dichtefunktion (p=" + "{:1.4f}".format(p) +
+ax_Dichte = fig.add_subplot(211)
+ax_Dichte.plot(x_Koordinaten, y_DichteFkt)
+# ax_Dichte.axis([1, maxIdx, 0, 0.2])
+ax_Dichte.set_title("Dichtefunktion (p=" + "{:1.4f}".format(p) +
           " ew=" + "{:1.4f}".format(erwartungsWert) + ")", loc="left")
 
 # Verteilungsfunktion
-plt.subplot(212)
-plt.title("Verteilungsfunktion (iw=" + "{:1.4f}".format(integralWert)
+ax_Verteilung = fig.add_subplot(212)
+ax_Verteilung.plot(x_Koordinaten, y_VerteilungsFkt)
+# ax_Verteilung.axis([1, maxIdx, 0, 1])
+ax_Verteilung.set_title("Verteilungsfunktion (iw=" + "{:1.4f}".format(integralWert)
           + ")", loc="left")
-# plt.axis([1, maxIdx, 0, 1])
-plt.plot(x_Koordinaten, y_VerteilungsFkt)
 
 plt.show()
